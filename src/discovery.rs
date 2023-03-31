@@ -1,1 +1,21 @@
-pub mod discovery_client;
+mod discovery_client;
+mod tm_dates;
+mod tm_sales;
+mod tm_structs;
+mod tm_classification;
+mod tm_place;
+mod tm_event;
+mod tm_links;
+mod tm_venue;
+mod tm_queries;
+
+pub use discovery_client::*;
+pub use tm_dates::*;
+pub use tm_sales::*;
+pub use tm_structs::*;
+pub use tm_classification::*;
+pub use tm_place::*;
+pub use tm_event::*;
+pub use tm_links::*;
+pub use tm_venue::*;
+pub use tm_queries::*;
