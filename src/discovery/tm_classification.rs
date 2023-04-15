@@ -1,225 +1,217 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_default::DefaultFromSerde;
 
-use super::{TmPaginatedLinks, TmPagination, TmLink, TmSimpleLinks};
+use super::{TmPaginatedLinks, TmPagination, TmSimpleLinks};
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmGenre {
     #[serde(default)]
-    id: String,
+    pub id: String,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
     #[serde(default)]
-    locale: Option<String>,
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSegmentGenre {
-    #[serde(default, rename="subGenres")]
-    sub_genres: Vec<TmGenre>,
+    #[serde(default, rename = "subGenres")]
+    pub sub_genres: Vec<TmGenre>,
 
     #[serde(default)]
-    id: String,
+    pub id: String,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
     #[serde(default)]
-    locale: Option<String>,
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSegment {
     #[serde(default)]
-    genres: Vec<TmSegmentGenre>,
+    pub genres: Vec<TmSegmentGenre>,
 
     #[serde(default)]
-    id: String,
+    pub id: String,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
     #[serde(default)]
-    locale: Option<String>,
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmClassificationSubtype {
     #[serde(default)]
-    id: String,
+    pub id: String,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
     #[serde(default)]
-    locale: Option<String>,
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmClassificationType {
-    #[serde(default, rename="subTypes")]
-    subtypes: Vec<TmClassificationSubtype>,
+    #[serde(default, rename = "subTypes")]
+    pub subtypes: Vec<TmClassificationSubtype>,
 
     #[serde(default)]
-    id: String,
+    pub id: String,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
     #[serde(default)]
-    locale: Option<String>
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmClassification {
-    #[serde(default, rename="_links")]
-    links: Option<TmSimpleLinks>,
+    #[serde(default, rename = "_links")]
+    pub links: Option<TmSimpleLinks>,
 
     #[serde(default)]
-    primary: bool,
+    pub primary: bool,
 
     #[serde(default)]
-    segment: Option<TmSegment>,
+    pub segment: Option<TmSegment>,
 
     #[serde(default)]
-    genre: Option<TmGenre>,
+    pub genre: Option<TmGenre>,
 
-    #[serde(default, rename="subGenre")]
-    sub_genre: Option<TmGenre>,
+    #[serde(default, rename = "subGenre")]
+    pub sub_genre: Option<TmGenre>,
 
-    #[serde(default, rename="type")]
-    classification_type: Option<TmClassificationType>,
+    #[serde(default, rename = "type")]
+    pub classification_type: Option<TmClassificationType>,
 
-    #[serde(default, rename="subType")]
-    classification_subtype: Option<TmClassificationSubtype>,
+    #[serde(default, rename = "subType")]
+    pub classification_subtype: Option<TmClassificationSubtype>,
 
     #[serde(default)]
-    family: bool
+    pub family: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSubgenreDetails {
-
-    #[serde(default, rename="_links")]
-    links: TmSimpleLinks,
-
-    #[serde(default)]
-    id: String,
+    #[serde(default, rename = "_links")]
+    pub links: TmSimpleLinks,
 
     #[serde(default)]
-    name: String,
+    pub id: String,
 
     #[serde(default)]
-    locale: Option<String>
+    pub name: String,
+
+    #[serde(default)]
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSubgenresDetailsContainer {
-
     #[serde(default)]
-    subgenres: Vec<TmSubgenreDetails>
+    pub subgenres: Vec<TmSubgenreDetails>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmGenreDetails {
+    #[serde(default, rename = "_embedded")]
+    pub subgenres: TmSubgenresDetailsContainer,
 
-    #[serde(default, rename="_embedded")]
-    subgenres: TmSubgenresDetailsContainer,
-
-    #[serde(default, rename="_links")]
-    links: TmSimpleLinks,
-
-    #[serde(default)]
-    id: String,
+    #[serde(default, rename = "_links")]
+    pub links: TmSimpleLinks,
 
     #[serde(default)]
-    name: String,
+    pub id: String,
 
     #[serde(default)]
-    locale: Option<String>
+    pub name: String,
+
+    #[serde(default)]
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmGenresDetailsContainer {
-
     #[serde(default)]
-    genres: Vec<TmGenreDetails>,
+    pub genres: Vec<TmGenreDetails>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSegmentDetails {
+    #[serde(default, rename = "_embedded")]
+    pub genres: TmGenresDetailsContainer,
 
-    #[serde(default, rename="_embedded")]
-    genres: TmGenresDetailsContainer,
-
-    #[serde(default, rename="_links")]
-    links: TmSimpleLinks,
-
-    #[serde(default)]
-    id: String,
+    #[serde(default, rename = "_links")]
+    pub links: TmSimpleLinks,
 
     #[serde(default)]
-    name: String,
+    pub id: String,
 
     #[serde(default)]
-    locale: Option<String>
+    pub name: String,
+
+    #[serde(default)]
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSubtypeDetails {
-
-    #[serde(default, rename="_links")]
-    links: TmSimpleLinks,
-
-    #[serde(default)]
-    id: String,
+    #[serde(default, rename = "_links")]
+    pub links: TmSimpleLinks,
 
     #[serde(default)]
-    name: String,
+    pub id: String,
 
     #[serde(default)]
-    locale: Option<String>
+    pub name: String,
+
+    #[serde(default)]
+    pub locale: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmClassificationDetails {
-
-    #[serde(default, rename="_links")]
-    links: TmSimpleLinks,
-
-    #[serde(default)]
-    segment: TmSegmentDetails,
+    #[serde(default, rename = "_links")]
+    pub links: TmSimpleLinks,
 
     #[serde(default)]
-    primary: bool,
+    pub segment: TmSegmentDetails,
 
     #[serde(default)]
-    classification_type: TmClassificationType,
-
-    #[serde(default, rename="subType")]
-    subtype: TmSubtypeDetails,
+    pub primary: bool,
 
     #[serde(default)]
-    family: bool
+    pub classification_type: TmClassificationType,
+
+    #[serde(default, rename = "subType")]
+    pub subtype: TmSubtypeDetails,
+
+    #[serde(default)]
+    pub family: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmClassificationsSearchContainer {
-
     #[serde(default)]
-    classications: Vec<TmClassificationDetails>
+    pub classications: Vec<TmClassificationDetails>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmClassificationsSearch {
-    #[serde(default, rename="_links")]
-    links: TmPaginatedLinks,
+    #[serde(default, rename = "_links")]
+    pub links: TmPaginatedLinks,
 
-    #[serde(default, rename="_embedded")]
-    container: TmClassificationsSearchContainer,
+    #[serde(default, rename = "_embedded")]
+    pub container: TmClassificationsSearchContainer,
 
     #[serde(default)]
-    page: TmPagination
+    pub page: TmPagination,
 }

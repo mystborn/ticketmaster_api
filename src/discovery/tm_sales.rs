@@ -1,41 +1,41 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_default::DefaultFromSerde;
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSalesPublic {
-    #[serde(default, rename="startDateTime")]
-    start_date_time: Option<String>,
+    #[serde(default, rename = "startDateTime")]
+    pub start_date_time: Option<String>,
 
-    #[serde(default, rename="endDateTime")]
-    end_date_time: Option<String>,
+    #[serde(default, rename = "endDateTime")]
+    pub end_date_time: Option<String>,
 
-    #[serde(default, rename="startTBD")]
-    start_tbd: bool
+    #[serde(default, rename = "startTBD")]
+    pub start_tbd: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmPresale {
     #[serde(default)]
-    name: String,
+    pub name: String,
 
     #[serde(default)]
-    description: Option<String>,
+    pub description: Option<String>,
 
     #[serde(default)]
-    url: String,
+    pub url: String,
 
-    #[serde(default, rename="startDateTime")]
-    start_date_time: String,
+    #[serde(default, rename = "startDateTime")]
+    pub start_date_time: String,
 
-    #[serde(default, rename="endDateTime")]
-    end_date_time: String
+    #[serde(default, rename = "endDateTime")]
+    pub end_date_time: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmSales {
     #[serde(default)]
-    public: TmSalesPublic,
-    
+    pub public: TmSalesPublic,
+
     #[serde(default)]
-    presales: Vec<TmPresale>
+    pub presales: Vec<TmPresale>,
 }

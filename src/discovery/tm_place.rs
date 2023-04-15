@@ -1,72 +1,67 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_default::DefaultFromSerde;
 
 use super::tm_structs::TmLocation;
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmPlaceNameValue {
-
     #[serde(default)]
-    name: String
+    pub name: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmAddress {
+    #[serde(default)]
+    pub line1: String,
 
     #[serde(default)]
-    line1: String,
+    pub line2: Option<String>,
 
     #[serde(default)]
-    line2: Option<String>,
-
-    #[serde(default)]
-    line3: Option<String>,
+    pub line3: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmState {
-
-    #[serde(default, rename="stateCode")]
-    state_code: Option<String>,
+    #[serde(default, rename = "stateCode")]
+    pub state_code: Option<String>,
 
     #[serde(default)]
-    name: String
+    pub name: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmCountry {
-
-    #[serde(default, rename="countryCode")]
-    country_code: String,
+    #[serde(default, rename = "countryCode")]
+    pub country_code: String,
 
     #[serde(default)]
-    name: String
+    pub name: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmPlace {
+    #[serde(default)]
+    pub area: Option<TmPlaceNameValue>,
 
     #[serde(default)]
-    area: Option<TmPlaceNameValue>,
+    pub address: TmAddress,
 
     #[serde(default)]
-    address: TmAddress,
+    pub city: TmPlaceNameValue,
 
     #[serde(default)]
-    city: TmPlaceNameValue,
+    pub state: TmState,
 
     #[serde(default)]
-    state: TmState,
+    pub country: TmCountry,
+
+    #[serde(default, rename = "postalCode")]
+    pub postal_code: String,
 
     #[serde(default)]
-    country: TmCountry,
-
-    #[serde(default, rename="postalCode")]
-    postal_code: String,
+    pub location: Option<TmLocation>,
 
     #[serde(default)]
-    location: Option<TmLocation>,
-
-    #[serde(default)]
-    name: Option<String>,
+    pub name: Option<String>,
 }

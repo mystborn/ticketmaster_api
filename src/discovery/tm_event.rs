@@ -10,143 +10,144 @@ use super::{
     tm_structs::{
         TmAccessibility, TmImage, TmLocation, TmOutlet, TmPriceRange, TmProduct, TmPromoter,
         TmSeatmap, TmTicketLimit,
-    }, TmVenue, TmAttraction,
+    },
+    TmAttraction, TmVenue,
 };
 
 #[derive(Debug, Serialize, Deserialize, DefaultFromSerde)]
 pub struct TmEventLinks {
     #[serde(default, rename = "self")]
-    current_page: TmLink,
+    pub current_page: TmLink,
 
     #[serde(default)]
-    venues: Vec<TmLink>,
+    pub venues: Vec<TmLink>,
 
     #[serde(default)]
-    attractions: Vec<TmLink>,
+    pub attractions: Vec<TmLink>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DefaultFromSerde)]
 pub struct EventVenuesContainer {
     #[serde(default)]
-    venues: Vec<TmVenue>,
+    pub venues: Vec<TmVenue>,
 
     #[serde(default)]
-    attractions: Vec<TmAttraction>
+    pub attractions: Vec<TmAttraction>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DefaultFromSerde)]
 pub struct TmEvent {
-    #[serde(default, rename="_links")]
-    links: TmEventLinks,
+    #[serde(default, rename = "_links")]
+    pub links: TmEventLinks,
 
-    #[serde(default, rename="_embedded")]
-    event_venues: Option<EventVenuesContainer>,
+    #[serde(default, rename = "_embedded")]
+    pub event_venues: Option<EventVenuesContainer>,
 
-    #[serde(default, rename="type")]
-    event_type: String,
-
-    #[serde(default)]
-    distance: Option<f64>,
-
-    #[serde(default, rename="units")]
-    distance_units: Option<String>,
+    #[serde(default, rename = "type")]
+    pub event_type: String,
 
     #[serde(default)]
-    location: Option<TmLocation>,
+    pub distance: Option<f64>,
+
+    #[serde(default, rename = "units")]
+    pub distance_units: Option<String>,
 
     #[serde(default)]
-    id: String,
+    pub location: Option<TmLocation>,
 
     #[serde(default)]
-    locale: Option<String>,
+    pub id: String,
 
     #[serde(default)]
-    name: String,
+    pub locale: Option<String>,
 
     #[serde(default)]
-    description: Option<String>,
-
-    #[serde(default, rename="additionalInfo")]
-    additional_info: Option<String>,
+    pub name: String,
 
     #[serde(default)]
-    url: String,
+    pub description: Option<String>,
+
+    #[serde(default, rename = "additionalInfo")]
+    pub additional_info: Option<String>,
 
     #[serde(default)]
-    images: Vec<TmImage>,
+    pub url: String,
 
     #[serde(default)]
-    dates: Option<TmDates>,
+    pub images: Vec<TmImage>,
 
     #[serde(default)]
-    sales: Option<TmSales>,
+    pub dates: Option<TmDates>,
 
     #[serde(default)]
-    info: String,
-
-    #[serde(default, rename="pleaseNote")]
-    please_note: String,
-
-    #[serde(default, rename="priceRanges")]
-    price_ranges: Vec<TmPriceRange>,
+    pub sales: Option<TmSales>,
 
     #[serde(default)]
-    promoter: Option<TmPromoter>,
+    pub info: String,
+
+    #[serde(default, rename = "pleaseNote")]
+    pub please_note: String,
+
+    #[serde(default, rename = "priceRanges")]
+    pub price_ranges: Vec<TmPriceRange>,
 
     #[serde(default)]
-    promoters: Vec<TmPromoter>,
+    pub promoter: Option<TmPromoter>,
 
     #[serde(default)]
-    outlets: Vec<TmOutlet>,
-
-    #[serde(default, rename="productType")]
-    product_type: String,
+    pub promoters: Vec<TmPromoter>,
 
     #[serde(default)]
-    products: Vec<TmProduct>,
+    pub outlets: Vec<TmOutlet>,
+
+    #[serde(default, rename = "productType")]
+    pub product_type: String,
 
     #[serde(default)]
-    seatmap: Option<TmSeatmap>,
+    pub products: Vec<TmProduct>,
 
     #[serde(default)]
-    accessibility: Option<TmAccessibility>,
-
-    #[serde(default, rename="ticketLimit")]
-    ticket_limit: Option<TmTicketLimit>,
+    pub seatmap: Option<TmSeatmap>,
 
     #[serde(default)]
-    classifications: Vec<TmClassification>,
+    pub accessibility: Option<TmAccessibility>,
+
+    #[serde(default, rename = "ticketLimit")]
+    pub ticket_limit: Option<TmTicketLimit>,
 
     #[serde(default)]
-    place: Option<TmPlace>,
-
-    #[serde(default, rename="externalLinks")]
-    external_links: Vec<String>,
+    pub classifications: Vec<TmClassification>,
 
     #[serde(default)]
-    test: bool,
+    pub place: Option<TmPlace>,
+
+    #[serde(default, rename = "externalLinks")]
+    pub external_links: Vec<String>,
 
     #[serde(default)]
-    aliases: Vec<String>,
+    pub test: bool,
 
-    #[serde(default, rename="localizedAliases")]
-    localized_aliases: Vec<String>,
+    #[serde(default)]
+    pub aliases: Vec<String>,
+
+    #[serde(default, rename = "localizedAliases")]
+    pub localized_aliases: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DefaultFromSerde)]
 pub struct TmEventsContainer {
     #[serde(default)]
-    events: Vec<TmEvent>,
+    pub events: Vec<TmEvent>,
 }
 
 #[derive(Debug, Serialize, Deserialize, DefaultFromSerde)]
 pub struct TmEvents {
-    #[serde(default, rename="_links")]
-    links: TmPaginatedLinks,
+    #[serde(default, rename = "_links")]
+    pub links: TmPaginatedLinks,
 
-    #[serde(default, rename="_embedded")]
-    container: TmEventsContainer,
+    #[serde(default, rename = "_embedded")]
+    pub container: TmEventsContainer,
 
     #[serde(default)]
-    page: TmPagination,
+    pub page: TmPagination,
 }

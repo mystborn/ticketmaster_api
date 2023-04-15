@@ -1,5 +1,5 @@
 use either::Either;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_default::DefaultFromSerde;
 
 use super::tm_structs::default_as_true;
@@ -8,203 +8,207 @@ use super::tm_structs::invalid_value_type;
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmChronologyZone {
     #[serde(default)]
-    fixed: bool,
+    pub fixed: bool,
 
     #[serde(default)]
-    id: String
+    pub id: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmChronology {
     #[serde(default)]
-    zone: TmChronologyZone
+    pub zone: TmChronologyZone,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTimeValue {
-    #[serde(default="invalid_value_type", rename="type")]
-    value_type: i32,
+    #[serde(default = "invalid_value_type", rename = "type")]
+    pub value_type: i32,
 
     #[serde(default)]
-    format: i32
+    pub format: i32,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTimeDurationType {
     #[serde(default)]
-    name: String
+    pub name: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTimeFieldType {
-    #[serde(default, rename="durationType")]
-    duration_type: Option<TmLocalTimeDurationType>,
+    #[serde(default, rename = "durationType")]
+    pub duration_type: Option<TmLocalTimeDurationType>,
 
-    #[serde(default, rename="rangeDurationType")]
-    range_duration_type: Option<TmLocalTimeDurationType>,
+    #[serde(default, rename = "rangeDurationType")]
+    pub range_duration_type: Option<TmLocalTimeDurationType>,
 
     #[serde(default)]
-    name: Option<String>
+    pub name: Option<String>,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTimeFieldRangeDurationType {
     #[serde(default)]
-    name: String
+    pub name: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTimeFieldRangeDuration {
-    #[serde(default, rename="unitMillis")]
-    unit_millis: i64,
+    #[serde(default, rename = "unitMillis")]
+    pub unit_millis: i64,
 
     #[serde(default)]
-    precise: bool,
+    pub precise: bool,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
-    #[serde(default, rename="type")]
-    duration_type: TmLocalTimeFieldRangeDurationType,
+    #[serde(default, rename = "type")]
+    pub duration_type: TmLocalTimeFieldRangeDurationType,
 
-    #[serde(default="default_as_true")]
-    supported: bool
+    #[serde(default = "default_as_true")]
+    pub supported: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTimeField {
     #[serde(default)]
-    lenient: bool,
+    pub lenient: bool,
 
-    #[serde(default, rename="rangeDurationField")]
-    range_duration_field: Option<TmLocalTimeFieldRangeDuration>,
+    #[serde(default, rename = "rangeDurationField")]
+    pub range_duration_field: Option<TmLocalTimeFieldRangeDuration>,
 
-    #[serde(default, rename="durationField")]
-    duration_field: Option<TmLocalTimeFieldRangeDuration>,
+    #[serde(default, rename = "durationField")]
+    pub duration_field: Option<TmLocalTimeFieldRangeDuration>,
 
-    #[serde(default, rename="minimumValue")]
-    minimum_value: i32,
+    #[serde(default, rename = "minimumValue")]
+    pub minimum_value: i32,
 
-    #[serde(default, rename="maximumValue")]
-    maximum_value: i32,
+    #[serde(default, rename = "maximumValue")]
+    pub maximum_value: i32,
 
-    #[serde(default, rename="leapDurationField")]
-    leap_duration_field: Option<TmLocalTimeFieldRangeDuration>,
+    #[serde(default, rename = "leapDurationField")]
+    pub leap_duration_field: Option<TmLocalTimeFieldRangeDuration>,
 
     #[serde(default)]
-    name: String,
+    pub name: String,
 
-    #[serde(default, rename="type")]
-    field_type: Option<TmLocalTimeFieldType>,
+    #[serde(default, rename = "type")]
+    pub field_type: Option<TmLocalTimeFieldType>,
 
-    #[serde(default="default_as_true")]
-    supported: bool
+    #[serde(default = "default_as_true")]
+    pub supported: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmLocalTime {
-    #[serde(default, rename="millisOfSecond")]
-    millis_of_second: i32,
+    #[serde(default, rename = "millisOfSecond")]
+    pub millis_of_second: i32,
 
-    #[serde(default, rename="millisOfDay")]
-    millis_of_day: i32,
+    #[serde(default, rename = "millisOfDay")]
+    pub millis_of_day: i32,
 
-    #[serde(default, rename="secondOfMinute")]
-    second_of_minute: i32,
+    #[serde(default, rename = "secondOfMinute")]
+    pub second_of_minute: i32,
 
-    #[serde(default, rename="minuteOfHour")]
-    minute_of_hour: i32,
+    #[serde(default, rename = "minuteOfHour")]
+    pub minute_of_hour: i32,
 
-    #[serde(default, rename="hourOfDay")]
-    hour_of_day: i32,
-
-    #[serde(default)]
-    chronology: Option<TmChronology>,
+    #[serde(default, rename = "hourOfDay")]
+    pub hour_of_day: i32,
 
     #[serde(default)]
-    values: Vec<TmLocalTimeValue>,
-
-    #[serde(default, rename="fieldTypes")]
-    field_types: Vec<TmLocalTimeFieldType>,
+    pub chronology: Option<TmChronology>,
 
     #[serde(default)]
-    fields: Vec<TmLocalTimeField>,
+    pub values: Vec<TmLocalTimeValue>,
 
-    #[serde(default, rename="dateTime")]
-    date_time: String,
+    #[serde(default, rename = "fieldTypes")]
+    pub field_types: Vec<TmLocalTimeFieldType>,
 
-    #[serde(default, rename="dateTBD")]
-    date_tbd: bool,
+    #[serde(default)]
+    pub fields: Vec<TmLocalTimeField>,
 
-    #[serde(default, rename="dateTBA")]
-    date_tba: bool,
+    #[serde(default, rename = "dateTime")]
+    pub date_time: String,
 
-    #[serde(default, rename="noSpecificTime")]
-    no_specific_time: bool,
+    #[serde(default, rename = "dateTBD")]
+    pub date_tbd: bool,
+
+    #[serde(default, rename = "dateTBA")]
+    pub date_tba: bool,
+
+    #[serde(default, rename = "noSpecificTime")]
+    pub no_specific_time: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmDate {
-    #[serde(default, rename="localDate")]
-    local_date: Option<String>,
+    #[serde(default, rename = "localDate")]
+    pub local_date: Option<String>,
 
-    #[serde(default, with="either::serde_untagged_optional", rename="localTime")]
-    local_time: Option<Either<String, TmLocalTime>>,
+    #[serde(
+        default,
+        with = "either::serde_untagged_optional",
+        rename = "localTime"
+    )]
+    pub local_time: Option<Either<String, TmLocalTime>>,
 
-    #[serde(default, rename="dateTime")]
-    date_time: Option<String>,
+    #[serde(default, rename = "dateTime")]
+    pub date_time: Option<String>,
 
-    #[serde(default, rename="dateTBD")]
-    date_tbd: bool,
+    #[serde(default, rename = "dateTBD")]
+    pub date_tbd: bool,
 
-    #[serde(default, rename="dateTBA")]
-    date_tba: bool,
+    #[serde(default, rename = "dateTBA")]
+    pub date_tba: bool,
 
-    #[serde(default, rename="timeTBA")]
-    time_tba: bool,
+    #[serde(default, rename = "timeTBA")]
+    pub time_tba: bool,
 
-    #[serde(default, rename="noSpecificTime")]
-    no_specific_time: bool,
+    #[serde(default, rename = "noSpecificTime")]
+    pub no_specific_time: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmEventAccess {
-    #[serde(default, rename="startDateTime")]
-    start_date_time: String,
+    #[serde(default, rename = "startDateTime")]
+    pub start_date_time: String,
 
-    #[serde(default, rename="startApproximate")]
-    start_approximate: bool,
+    #[serde(default, rename = "startApproximate")]
+    pub start_approximate: bool,
 
-    #[serde(default, rename="endDateTime")]
-    end_date_time: String,
+    #[serde(default, rename = "endDateTime")]
+    pub end_date_time: String,
 
-    #[serde(default, rename="endApproximate")]
-    end_approximate: bool,
+    #[serde(default, rename = "endApproximate")]
+    pub end_approximate: bool,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmEventStatus {
     #[serde(default)]
-    code: String,
+    pub code: String,
 }
 
 #[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
 pub struct TmDates {
     #[serde(default)]
-    start: Option<TmDate>,
+    pub start: Option<TmDate>,
 
     #[serde(default)]
-    end: Option<TmDate>,
+    pub end: Option<TmDate>,
 
     #[serde(default)]
-    access: Option<TmEventAccess>,
+    pub access: Option<TmEventAccess>,
 
     #[serde(default)]
-    timezone: Option<String>,
+    pub timezone: Option<String>,
 
     #[serde(default)]
-    status: Option<TmEventStatus>,
+    pub status: Option<TmEventStatus>,
 
-    #[serde(default, rename="spanMultipleDays")]
-    span_multiple_days: bool
+    #[serde(default, rename = "spanMultipleDays")]
+    pub span_multiple_days: bool,
 }
