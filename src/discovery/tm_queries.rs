@@ -212,5 +212,75 @@ pub struct ClassificationSearchQuery {
     include_spellcheck: Option<String>,
 
     domain: Option<Vec<String>>
+}
 
+#[derive(Debug, Serialize, Deserialize, Default, Getters, Setters)]
+#[getset(get = "pub", set = "pub")]
+pub struct VenuesSearchQuery {
+    id: Option<String>,
+    keyword: Option<String>,
+    latlong: Option<String>,
+    radius: Option<String>,
+    #[serde(rename="unit")]
+    radius_unit: Option<String>,
+    source: Option<String>,
+    locale: Option<String>,
+
+    #[serde(rename = "includeTest")]
+    include_test: Option<String>,
+    size: Option<u32>,
+    page: Option<u32>,
+    sort: Option<String>,
+
+    #[serde(rename = "countryCode")]
+    country_code: Option<String>,
+
+    #[serde(rename="stateCode")]
+    state_code: Option<String>,
+
+    #[serde(rename = "geoPoint")]
+    geo_point: Option<String>,
+
+    #[serde(rename = "preferredCountry")]
+    preferred_country: Option<String>,
+
+    #[serde(rename = "includeSpellcheck")]
+    include_spellcheck: Option<String>,
+
+    domain: Option<Vec<String>>
+}
+
+#[derive(Debug, Serialize, Deserialize, Default, Getters, Setters)]
+#[getset(get = "pub", set = "pub")]
+pub struct FindSuggestQuery {
+    keyword: Option<String>,
+    latlong: Option<String>,
+    radius: Option<String>,
+    #[serde(rename="unit")]
+    radius_unit: Option<String>,
+    source: Option<String>,
+    locale: Option<String>,
+
+    #[serde(rename="includeTBA")]
+    include_tba: Option<String>,
+    #[serde(rename="includeTBD")]
+    include_tbd: Option<String>,
+
+    #[serde(rename = "includeTest")]
+    include_test: Option<String>,
+    size: Option<u32>,
+
+    #[serde(rename = "countryCode")]
+    country_code: Option<String>,
+
+    #[serde(rename = "geoPoint")]
+    geo_point: Option<String>,
+
+    #[serde(rename = "preferredCountry")]
+    preferred_country: Option<String>,
+
+    #[serde(rename = "includeSpellcheck")]
+    include_spellcheck: Option<String>,
+
+    domain: Option<Vec<String>>
 }

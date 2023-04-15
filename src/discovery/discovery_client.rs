@@ -4,7 +4,7 @@ use either::Either;
 use reqwest::{Client, ClientBuilder};
 use serde::Deserialize;
 
-use super::{TmEvent, TmEvents, TmImages, EventSearchQuery, DetailsQuery, AttractionSearchQuery, TmAttractions, TmAttraction, ClassificationSearchQuery, TmClassifications};
+use super::{TmEvent, TmEvents, TmImages, EventSearchQuery, DetailsQuery, AttractionSearchQuery, TmAttractions, TmAttraction, ClassificationSearchQuery, TmClassificationDetails, TmClassificationsSearch, TmGenreDetails, TmSegmentDetails, TmSubgenreDetails, VenuesSearchQuery, TmVenuesSearch, TmVenue};
 
 use serde_qs;
 
@@ -17,6 +17,7 @@ const API_PREFIX: &'static str = "https://app.ticketmaster.com/discovery/v2/";
 const EVENT_SEARCH: &'static str = "events.json?";
 const ATTRACTION_SEARCH: &'static str = "attractions.json?";
 const CLASSIFICATION_SEARCH: &'static str = "classifications.json?";
+const VENUE_SEARCH: &'static str = "venues.json?";
 
 impl TicketmasterDiscoveryClient {
     pub fn new(api_key: String) -> TicketmasterDiscoveryClient {
@@ -181,7 +182,7 @@ impl TicketmasterDiscoveryClient {
         Ok(url)
     }
 
-    pub async fn classification_search(&self, search_query: Either<&ClassificationSearchQuery, &str>) -> Result<TmClassifications, Box<dyn Error>> {
+    pub async fn classification_search(&self, search_query: Either<&ClassificationSearchQuery, &str>) -> Result<TmClassificationsSearch, Box<dyn Error>> {
         let url = self.classification_search_url(search_query)?;
 
         self.get_object(url).await
@@ -189,6 +190,182 @@ impl TicketmasterDiscoveryClient {
 
     pub async fn classification_search_as_json(&self, search_query: Either<&ClassificationSearchQuery, &str>) -> Result<String, Box<dyn Error>> {
         let url = self.classification_search_url(search_query)?;
+
+        self.get_text(url).await
+    }
+
+    fn classification_details_url(&self, classification_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let mut url = API_PREFIX.to_string();
+        url.push_str("classifications/");
+        url.push_str(classification_id);
+        url.push_str(".json?");
+        
+        if let Some(inner) = search_query {
+            match inner {
+                Either::Left(obj) => url.push_str(serde_qs::to_string(obj)?.as_str()),
+                Either::Right(text) => url.push_str(text)
+            }
+        }
+
+        self.append_api_key(&mut url);
+
+        Ok(url)
+    }
+
+    pub async fn classification_details(&self, classification_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<TmClassificationDetails, Box<dyn Error>> {
+        let url = self.classification_details_url(classification_id, search_query)?;
+
+        self.get_object(url).await
+    }
+
+    pub async fn classification_details_as_json(&self, classification_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let url = self.classification_details_url(classification_id, search_query)?;
+
+        self.get_text(url).await
+    }
+
+    fn genre_details_url(&self, genre_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let mut url = API_PREFIX.to_string();
+        url.push_str("classifications/genres/");
+        url.push_str(genre_id);
+        url.push_str(".json?");
+        
+        if let Some(inner) = search_query {
+            match inner {
+                Either::Left(obj) => url.push_str(serde_qs::to_string(obj)?.as_str()),
+                Either::Right(text) => url.push_str(text)
+            }
+        }
+
+        self.append_api_key(&mut url);
+
+        Ok(url)
+    }
+
+    pub async fn genre_details(&self, genre_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<TmGenreDetails, Box<dyn Error>> {
+        let url = self.genre_details_url(genre_id, search_query)?;
+
+        self.get_object(url).await
+    }
+
+    pub async fn genre_details_as_json(&self, genre_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let url = self.genre_details_url(genre_id, search_query)?;
+
+        self.get_text(url).await
+    }
+
+    fn segment_details_url(&self, segment_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let mut url = API_PREFIX.to_string();
+        url.push_str("classifications/segments/");
+        url.push_str(segment_id);
+        url.push_str(".json?");
+        
+        if let Some(inner) = search_query {
+            match inner {
+                Either::Left(obj) => url.push_str(serde_qs::to_string(obj)?.as_str()),
+                Either::Right(text) => url.push_str(text)
+            }
+        }
+
+        self.append_api_key(&mut url);
+
+        Ok(url)
+    }
+
+    pub async fn segment_details(&self, segment_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<TmSegmentDetails, Box<dyn Error>> {
+        let url = self.segment_details_url(segment_id, search_query)?;
+
+        self.get_object(url).await
+    }
+
+    pub async fn segment_details_as_json(&self, segment_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let url = self.segment_details_url(segment_id, search_query)?;
+
+        self.get_text(url).await
+    }
+
+    fn subgenre_details_url(&self, subgenre_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let mut url = API_PREFIX.to_string();
+        url.push_str("classifications/subgenres/");
+        url.push_str(subgenre_id);
+        url.push_str(".json?");
+        
+        if let Some(inner) = search_query {
+            match inner {
+                Either::Left(obj) => url.push_str(serde_qs::to_string(obj)?.as_str()),
+                Either::Right(text) => url.push_str(text)
+            }
+        }
+
+        self.append_api_key(&mut url);
+
+        Ok(url)
+    }
+
+    pub async fn subgenre_details(&self, subgenre_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<TmSubgenreDetails, Box<dyn Error>> {
+        let url = self.subgenre_details_url(subgenre_id, search_query)?;
+
+        self.get_object(url).await
+    }
+
+    pub async fn subgenre_details_as_json(&self, subgenre_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let url = self.subgenre_details_url(subgenre_id, search_query)?;
+
+        self.get_text(url).await
+    }
+
+    fn venue_search_url(&self, search_query: Either<&VenuesSearchQuery, &str>) -> Result<String, Box<dyn Error>> {
+        let mut url = API_PREFIX.to_string();
+        url.push_str(VENUE_SEARCH);
+
+        match search_query {
+            Either::Left(obj) => url.push_str(serde_qs::to_string(obj)?.as_str()),
+            Either::Right(text) => url.push_str(text)
+        }
+
+        self.append_api_key(&mut url);
+
+        Ok(url)
+    }
+
+    pub async fn venue_search(&self, search_query: Either<&VenuesSearchQuery, &str>) -> Result<TmVenuesSearch, Box<dyn Error>> {
+        let url = self.venue_search_url(search_query)?;
+
+        self.get_object(url).await
+    }
+
+    pub async fn venue_search_as_json(&self, search_query: Either<&VenuesSearchQuery, &str>) -> Result<String, Box<dyn Error>> {
+        let url = self.venue_search_url(search_query)?;
+
+        self.get_text(url).await
+    }
+
+    fn venue_details_url(&self, venue_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let mut url = API_PREFIX.to_string();
+        url.push_str("venues/");
+        url.push_str(venue_id);
+        url.push_str(".json?");
+        
+        if let Some(inner) = search_query {
+            match inner {
+                Either::Left(obj) => url.push_str(serde_qs::to_string(obj)?.as_str()),
+                Either::Right(text) => url.push_str(text)
+            }
+        }
+
+        self.append_api_key(&mut url);
+
+        Ok(url)
+    }
+
+    pub async fn venue_details(&self, venue_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<TmVenue, Box<dyn Error>> {
+        let url = self.venue_details_url(venue_id, search_query)?;
+
+        self.get_object(url).await
+    }
+
+    pub async fn venue_details_as_json(&self, venue_id: &str, search_query: Option<Either<&DetailsQuery, &str>>) -> Result<String, Box<dyn Error>> {
+        let url = self.venue_details_url(venue_id, search_query)?;
 
         self.get_text(url).await
     }

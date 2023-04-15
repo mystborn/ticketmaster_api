@@ -226,3 +226,21 @@ pub struct TmAttractions {
     #[serde(default)]
     page: TmPagination
 }
+
+#[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
+pub struct TmVenuesContainer {
+    #[serde(default)]
+    venues: Vec<TmVenue>
+}
+
+#[derive(Debug, DefaultFromSerde, Serialize, Deserialize)]
+pub struct TmVenuesSearch {
+    #[serde(default, rename="_links")]
+    links: TmPaginatedLinks,
+
+    #[serde(default, rename="_embedded")]
+    container: TmVenuesContainer,
+
+    #[serde(default)]
+    page: TmPagination
+}
